@@ -39,9 +39,9 @@ namespace Overmine.Patches
             if (string.IsNullOrEmpty(innerText))
                 return true;
 
-            var language = Localizations[Localizer.Instance.Language];
+            if (!Localizations.TryGetValue(Localizer.Instance.Language, out var language)) return true;
             if (!language.ContainsKey(innerText)) return true;
-            
+
             __result = language[innerText];
             return false;
         }
@@ -54,7 +54,7 @@ namespace Overmine.Patches
             if (string.IsNullOrEmpty(innerText))
                 return true;
 
-            var language = Localizations[Localizer.Instance.Language];
+            if (!Localizations.TryGetValue(Localizer.Instance.Language, out var language)) return true;
             if (!language.ContainsKey(innerText)) return true;
             
             __result = string.Format(language[innerText], args);
