@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net461</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="0Harmony, Version=2.3.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\0Harmony.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="BehaviorDesigner, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\BehaviorDesigner.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="BehaviorDesigner.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\BehaviorDesigner.Runtime.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="BepInEx, Version=5.4.5.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\BepInEx.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="BepInEx.Harmony, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\BepInEx.Harmony.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="UnderMine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\UnderMine.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\UnityEngine.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\UnityEngine.AssetBundleModule.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\UnityEngine.CoreModule.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\UnityEngine.ImageConversionModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\UnityEngine.InputLegacyModule.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="UnityEngine.InputModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\UnityEngine.InputModule.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+      <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\Libraries\UnityEngine.JSONSerializeModule.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+
+</Project>
