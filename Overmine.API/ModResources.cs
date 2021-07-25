@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Overmine.API.Assets.Resolvers;
 using UnityEngine;
 
 namespace Overmine.API
@@ -36,6 +37,17 @@ namespace Overmine.API
         public IEnumerable<string> GetAllAssetNames()
         {
             return Bundles.SelectMany(x => x.GetAllAssetNames());
+        }
+
+        public void ResolveReferences()
+        {
+            var markers = LoadAllObjectsWithComponent<AssetResolver>();
+            foreach (var marker in markers)
+            {
+                var components = marker.gameObject.GetComponents<Component>();
+                foreach(var component in components)
+                    Assets.Assets.ResolveComponent(component);
+            }
         }
 
         public IEnumerable<T> LoadAllObjectsWithComponent<T>()
