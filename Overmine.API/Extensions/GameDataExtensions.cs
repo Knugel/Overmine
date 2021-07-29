@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Overmine.API.Assets;
 using Thor;
 
@@ -19,6 +21,9 @@ namespace Overmine.API.Extensions
         public static void RegisterItems(this GameData data, ModResources resources)
         {
             var items = resources.LoadAllAssets<ItemData>();
+            var defaultUnlocked = data.GetField<List<string>>("mDefaultUnlocked");
+            var defaultDiscovered = data.GetField<List<string>>("mDefaultDiscovered");
+            
             foreach (var item in items)
             {
                 data.Items.Add(item);
@@ -43,6 +48,11 @@ namespace Overmine.API.Extensions
                     data.ArtifactCollection.Add(item);
                 if((item.Hint & ItemData.ItemHint.Skin) != 0)
                     data.SkinCollection.Add(item);
+                
+                if(item.IsDefault)
+                    defaultUnlocked.Add(item.guid);
+                if(item.IsDefaultDiscovered)
+                    defaultDiscovered.Add(item.guid);
             }
         }
 
@@ -57,10 +67,10 @@ namespace Overmine.API.Extensions
 
         public static void RegisterFamiliars(this GameData data, ModResources resources)
         {
-            var familiars = resources.LoadAllObjectsWithComponent<PetExt>();
-            foreach (var familiar in familiars)
+            var petExtensions = resources.LoadAllObjectsWithComponent<PetExt>();
+            foreach (var extension in petExtensions)
             {
-                data.Familiars.Add(familiar);
+                data.Familiars.Add(extension);
             }
         }
         
@@ -85,6 +95,13 @@ namespace Overmine.API.Extensions
         {
             var popups = resources.LoadAllAssets<Popup>();
             data.Popups.AddRange(popups);
+        }
+
+        private static T GetField<T>(this GameData data, string name)
+        {
+            var field = typeof(GameData).GetField(name,
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            return (T) field.GetValue(data);
         }
     }
 }

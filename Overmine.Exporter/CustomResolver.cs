@@ -65,7 +65,6 @@ namespace Overmine.Exporter
                 }
             }
         }
-
         private static IEnumerable<FieldInfo> GetFields(Type type)
         {
             var ret = new List<FieldInfo>();
@@ -81,6 +80,7 @@ namespace Overmine.Exporter
 
             return ret;
         }
+
 
         private static string Beautify(string name)
         {

@@ -42,7 +42,7 @@ namespace Overmine.API.Assets
             return Resolvers.Any(x => x.CanResolve(type));
         }
 
-        public static void ResolveComponent(Component component)
+        public static void ResolveComponent(object component)
         {
             var fields = GetSerializedFields(component.GetType());
             foreach (var field in fields)
@@ -60,6 +60,8 @@ namespace Overmine.API.Assets
                         
                         if(CanResolve(item.GetType()))
                             collection[i] = Resolve(item as IAssetReference);
+                        else
+                            ResolveComponent(item);
                     }
                     
                     field.SetValue(component, collection);
