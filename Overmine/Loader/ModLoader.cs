@@ -60,8 +60,8 @@ namespace Overmine.Loader
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError($"Error while trying to initialize Mod {container.Info.Name}!");
-                        Debug.LogException(e);
+                        _logger.LogError($"Error while trying to initialize Mod {container.Info.Name}!");
+                        _logger.LogError(e);
                     }
                 }
             }

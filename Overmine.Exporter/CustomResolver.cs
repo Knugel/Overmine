@@ -36,7 +36,6 @@ namespace Overmine.Exporter
 
                 if (container.ContainsKey(name))
                 {
-                    // Debug.LogWarning($"Couldn't add {name} to container of Type {value.GetType().Name}");
                     continue;
                 }
 

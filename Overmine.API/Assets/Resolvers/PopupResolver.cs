@@ -15,7 +15,6 @@ namespace Overmine.API.Assets.Resolvers
             if(Popups.Count == 0)
                 GetPopups();
             var resolved = Popups.TryGetValue(reference.Guid, out var value) ? value : null;
-            Debug.Log("Resolving reference " + reference.Guid + " to " + resolved);
             return resolved;
         }
 

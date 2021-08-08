@@ -88,7 +88,6 @@ namespace Overmine.API.Assets
                     if (resolved != null)
                     {
                         field.SetValue(component, resolved);
-                        Debug.Log(component.GetType() + ":" + field.Name + " = " + resolved);
                     }
                 }
             }
