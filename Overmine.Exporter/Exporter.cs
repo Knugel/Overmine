@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using BehaviorDesigner.Runtime.Tasks;
 using BepInEx;
 using HarmonyLib;
 using Newtonsoft.Json;
@@ -13,8 +10,6 @@ using Newtonsoft.Json.Converters;
 using Overmine.Exporter.Converters;
 using Thor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Color = System.Drawing.Color;
 
 namespace Overmine.Exporter
 {
@@ -75,36 +70,6 @@ namespace Overmine.Exporter
             
             BehaviorConverter.Write = true;
             Write(BehaviorConverter.Behaviors.Values.OrderBy(x => x.GetHashCode()).ToList(), "Behaviors", serializer);
-            
-            var grids = gameObjects
-                .Select(x => x.GetComponent<Grid>())
-                .Where(x => x != null)
-                .Distinct()
-                .ToList();
-            
-            var field = typeof(Grid).GetField("m_source", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            var cells = new Dictionary<Color, GridData>();
-            
-            foreach (var grid in grids)
-            {
-                var img = new Bitmap(grid.Width, grid.Height);
-                var source = field.GetValue(grid) as Grid.GridMap;
-
-                for (var x = 0; x < grid.Width; x++)
-                {
-                    for (var y = 0; y < grid.Height; y++)
-                    {
-                        var cell = source[x, y];
-                        var color = Color.FromArgb((int) (cell.Color.a * 255), (int) (cell.Color.r * 255), (int) (cell.Color.g * 255), (int) (cell.Color.b * 255));
-                        cells[color] = cell;
-                        img.SetPixel(x, y, color);
-                    }
-                }
-                
-                img.Save($"Overmine/Grids/{grid.gameObject.name}.png");
-            }
-            
-            Write(cells.ToList(), "Cells", serializer);
         }
 
         private static void Write<T>(IEnumerable<T> source, string name, JsonSerializer serializer)

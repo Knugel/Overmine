@@ -2,26 +2,23 @@ using Thor;
 
 namespace Overmine.API.Events
 {
-    public readonly struct SetupEvent
+    public abstract class SetupEvent
     {
-        public readonly struct Pre
+        public readonly GameData Instance;
+
+        protected SetupEvent(GameData instance)
         {
-            public readonly GameData Instance;
-            
-            public Pre(GameData instance)
-            {
-                Instance = instance;
-            }
+            Instance = instance;
+        }
+
+        public class Pre : SetupEvent
+        {
+            public Pre(GameData instance): base(instance) { }
         }
         
-        public readonly struct Post
+        public class Post : SetupEvent
         {
-            public readonly GameData Instance;
-            
-            public Post(GameData instance)
-            {
-                Instance = instance;
-            }
+            public Post(GameData instance): base(instance) { }
         }
     }
 }

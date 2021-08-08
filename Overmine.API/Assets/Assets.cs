@@ -66,14 +66,30 @@ namespace Overmine.API.Assets
                     
                     field.SetValue(component, collection);
                 }
+                else if (value is IDictionary dictionary)
+                {
+                    foreach (var key in dictionary.Keys)
+                    {
+                        var item = dictionary[key];
+                        if (item == null) continue;
+                        
+                        if(CanResolve(item.GetType()))
+                            dictionary[key] = Resolve(item as IAssetReference);
+                        else
+                            ResolveComponent(item);
+                    }
+                }
                 else
                 {
                     if(!CanResolve(value.GetType()))
                         continue;
-                    
+
                     var resolved = Resolve(value as IAssetReference);
                     if (resolved != null)
+                    {
                         field.SetValue(component, resolved);
+                        Debug.Log(component.GetType() + ":" + field.Name + " = " + resolved);
+                    }
                 }
             }
         }

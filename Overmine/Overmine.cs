@@ -5,7 +5,7 @@ using Overmine.Patches;
 
 namespace Overmine
 {
-    [BepInPlugin("com.knugel.overmine", "Overmine", "0.1.0")]
+    [BepInPlugin("com.knugel.overmine", "Overmine", "0.1.3")]
     public class Overmine : BaseUnityPlugin
     {
         public static Overmine Instance { get; private set; }

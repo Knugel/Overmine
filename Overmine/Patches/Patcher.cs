@@ -12,6 +12,10 @@ namespace Overmine.Patches
            Patch<LocalizerPatches>();
            Patch<GameDataPatches>();
            Patch<PopupPatches>();
+           Patch<RoomPatches>();
+           Patch<AudioExtPatches>();
+
+           Patch<CollectorRoomPatches>();
         }
 
         private static void Patch<T>()

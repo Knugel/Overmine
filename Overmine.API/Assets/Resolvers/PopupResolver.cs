@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Overmine.API.Assets.References;
 using Thor;
+using UnityEngine;
 
 namespace Overmine.API.Assets.Resolvers
 {
@@ -13,7 +14,9 @@ namespace Overmine.API.Assets.Resolvers
         {
             if(Popups.Count == 0)
                 GetPopups();
-            return Popups.TryGetValue(reference.Guid, out var value) ? value : null;
+            var resolved = Popups.TryGetValue(reference.Guid, out var value) ? value : null;
+            Debug.Log("Resolving reference " + reference.Guid + " to " + resolved);
+            return resolved;
         }
 
         private static void GetPopups()

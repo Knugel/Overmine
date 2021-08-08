@@ -6,7 +6,6 @@ namespace Overmine.Patches
 {
     public class GameDataPatches
     {
-        
         [HarmonyPatch(typeof(GameData), nameof(GameData.Setup))]
         [HarmonyPrefix]
         public static void PreSetup()

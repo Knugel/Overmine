@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using HarmonyLib;
 using Overmine.API.Assets;
+using Overmine.API.Assets.References;
 using Thor;
 
 namespace Overmine.API.Extensions
