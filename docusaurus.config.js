@@ -60,22 +60,18 @@ const config = {
             docId: 'intro',
             position: 'left',
             label: 'Docs',
+          },
+          {
+            label: 'GitHub',
+            href: 'https://github.com/Knugel/Overmine',
+            position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
           }
         ],
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
         copyright: `Made by Knugel. Built with Docusaurus.`,
       },
       prism: {

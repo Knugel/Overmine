@@ -28,3 +28,23 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+#-decorator {
+  display: flex;
+  align-items: center;
+}
+
+#-condition {
+  display: flex;
+  align-items: center;
+}
+
+#-action {
+  display: flex;
+  align-items: center;
+}
+
+#-composite {
+  display: flex;
+  align-items: center;
+}
