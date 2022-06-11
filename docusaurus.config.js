@@ -35,6 +35,7 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: 'https://github.com/Knugel/Overmine/tree/docs'
         },
         blog: false,
         theme: {
