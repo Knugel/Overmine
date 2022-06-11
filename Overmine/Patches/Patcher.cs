@@ -1,3 +1,4 @@
+using BepInEx.Logging;
 using HarmonyLib;
 
 namespace Overmine.Patches
@@ -6,20 +7,22 @@ namespace Overmine.Patches
     {
         public const string HarmonyInstanceID = "com.knugel.overmine";
         
-        public static void Install()
+        public static void Install(ManualLogSource logger)
         {
-           Patch<TaskPatches>();
-           Patch<LocalizerPatches>();
-           Patch<GameDataPatches>();
-           Patch<PopupPatches>();
-           Patch<RoomPatches>();
-           Patch<AudioExtPatches>();
+           Patch<TaskPatches>(logger);
+           Patch<LocalizerPatches>(logger);
+           Patch<GameDataPatches>(logger);
+           Patch<PopupPatches>(logger);
+           Patch<RoomPatches>(logger);
+           // Patch<ObjectPatches>(logger);
+           // Patch<AudioExtPatches>();
 
-           Patch<CollectorRoomPatches>();
+           Patch<CollectorRoomPatches>(logger);
         }
 
-        private static void Patch<T>()
+        private static void Patch<T>(ManualLogSource logger)
         {
+            logger.LogInfo($"Patch: {typeof(T).Name}");
             Harmony.CreateAndPatchAll(typeof(T), HarmonyInstanceID);
         }
     }

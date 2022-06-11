@@ -26,8 +26,10 @@ namespace Overmine.Loader
         
         public void Load(string path)
         {
-            var directories = Directory.EnumerateDirectories(path).ToList();
+            if (!Directory.Exists(path))
+                return;
             
+            var directories = Directory.EnumerateDirectories(path).ToList();
             _logger.LogInfo($"Searching {directories.Count} directories at {Path.GetFullPath(path)}.");
             
             foreach (var directory in directories)

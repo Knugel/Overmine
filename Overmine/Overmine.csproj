@@ -61,6 +61,10 @@
       <HintPath>..\Libraries\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\..\..\Overmine\Overmine\Libraries\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libraries\UnityEngine.InputLegacyModule.dll</HintPath>
       <Private>False</Private>
