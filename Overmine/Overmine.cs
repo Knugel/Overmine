@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Overmine
 {
-    [BepInPlugin("com.knugel.overmine", "Overmine", "0.1.3")]
+    [BepInPlugin("com.knugel.overmine", "Overmine", "0.1.4")]
     public class Overmine : BaseUnityPlugin
     {
         public static Overmine Instance { get; private set; }
@@ -44,7 +44,7 @@ namespace Overmine
         
         private void PostSetup(SetupEvent.Post ev)
         {
-            ApplyItemTexturePack(ev.Instance);
+            ApplyDataObjectsTexturePack();
             ApplyUITexturePack();
             GameEvents.Register(SimulationEvent.EventType.RoomChanged, OnRoomChanged);
         }
@@ -55,25 +55,30 @@ namespace Overmine
             ApplyParticlesTexturePack();
         }
 
-        private void ApplyItemTexturePack(GameData instance)
+        private void ApplyDataObjectsTexturePack()
         {
             _stopwatch.Start();
-            
-            var items = instance.Items;
-            foreach (var item in items)
+
+            void Overwrite(EntityData entity, Sprite source, string field)
             {
-                var sprite = item.Icon;
-                if(sprite == null)
-                    continue;
-                var pivot = GetSpritePivot(sprite);
-                var replacement = TexturePackLoader.GetSprite(sprite.name, pivot, sprite.pixelsPerUnit);
+                if(source == null)
+                    return;
+                var pivot = GetSpritePivot(source);
+                var replacement = TexturePackLoader.GetSprite(source.name, pivot, source.pixelsPerUnit);
                 if (replacement != null)
-                    new Traverse(item).Field("m_icon").SetValue(replacement);
+                    new Traverse(entity).Field(field).SetValue(replacement);
+            }
+            
+            var entities = Resources.FindObjectsOfTypeAll<EntityData>();
+            foreach (var entity in entities)
+            {
+                Overwrite(entity, entity.Icon, "m_icon");
+                Overwrite(entity, entity.Portrait, "m_portrait");
             }
             
             var elapsed = _stopwatch.Elapsed;
             _stopwatch.Reset();
-            Logger.LogInfo($"Applying item textures took {elapsed}");
+            Logger.LogDebug($"Applying item textures took {elapsed}");
         }
 
         private void ApplyRendererTexturePack()
@@ -94,7 +99,7 @@ namespace Overmine
 
             var elapsed = _stopwatch.Elapsed;
             _stopwatch.Reset();
-            Logger.LogInfo($"Applying sprite-renderer textures took {elapsed}");
+            Logger.LogDebug($"Applying sprite-renderer textures took {elapsed}");
         }
 
         private void ApplyParticlesTexturePack()
@@ -124,7 +129,7 @@ namespace Overmine
             }
             var elapsed = _stopwatch.Elapsed;
             _stopwatch.Reset();
-            Logger.LogInfo($"Applying particles textures took {elapsed}");
+            Logger.LogDebug($"Applying particles textures took {elapsed}");
         }
 
         private void ApplyUITexturePack()
@@ -144,7 +149,7 @@ namespace Overmine
             }
             var elapsed = _stopwatch.Elapsed;
             _stopwatch.Reset();
-            Logger.LogInfo($"Applying particles textures took {elapsed}");
+            Logger.LogDebug($"Applying UI textures took {elapsed}");
         }
         
         private static Vector2 GetSpritePivot(Sprite sprite)

@@ -7,7 +7,7 @@ namespace Overmine.Patches
 {
     public class LocalizerPatches
     {
-        private static Dictionary<Localizer.LanguageType, Dictionary<string, string>> Localizations = new Dictionary<Localizer.LanguageType, Dictionary<string, string>>();
+        private static readonly Dictionary<Localizer.LanguageType, Dictionary<string, string>> Localizations = new Dictionary<Localizer.LanguageType, Dictionary<string, string>>();
 
         [HarmonyPatch(typeof(Localizer), "Load")]
         [HarmonyPostfix]
@@ -24,7 +24,7 @@ namespace Overmine.Patches
                 {
                     var key = db.Keys[i];
                     var text = db.Texts[i];
-                    localizations.Add(key, text);
+                    localizations[key] = text;
                 }
 
                 Localizations[db.Language] = localizations;
@@ -35,7 +35,7 @@ namespace Overmine.Patches
         [HarmonyPrefix]
         public static bool OnGetLocString(LocID locID, ref string __result)
         {
-            var innerText = locID.Text.Value;
+            var innerText = GetId(locID);
             if (string.IsNullOrEmpty(innerText))
                 return true;
 
@@ -50,7 +50,7 @@ namespace Overmine.Patches
         [HarmonyPrefix]
         public static bool OnFormatLocString(LocID locID, ref string __result, params object[] args)
         {
-            var innerText = locID.Text.Value;
+            var innerText = GetId(locID);
             if (string.IsNullOrEmpty(innerText))
                 return true;
 
@@ -59,6 +59,11 @@ namespace Overmine.Patches
             
             __result = string.Format(language[innerText], args);
             return false;
+        }
+
+        private static string GetId(LocID locID)
+        {
+            return locID.Id != 0 ? locID.Id.ToString() : locID.Text.Value;
         }
     }
 }
